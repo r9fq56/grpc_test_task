@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+import "google/protobuf/wrappers.proto";
+import "google/api/annotations.proto";
+
+package ecommerce;
+
+option go_package = "github.com/monkrus/grpc-from0;grpc_from0";
+
+service MakeInterfaceDump {
+    rpc MakeInterfaceDump(MakeInterfaceDumpRequest) returns (Dump) {
+        option (google.api.http) = {
+            post: "/dump/v1/"
+            body: "*"
+        };
+    }
+}
+
+message MakeInterfaceDumpRequest {
+    string id = 1;
+    string name= 2;
+    string mac = 3;
+    string ip = 4;
+    string dns = 5;
+    string gateway = 6;
+}
+
+message Dump {
+    string id = 1;
+}
