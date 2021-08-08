@@ -15,7 +15,7 @@
 # vendor/
 go.mod
 go.sum
-Dockerfile
-docker-compose.yaml
+#Dockerfile
+#docker-compose.yaml
 /archive
 /bin

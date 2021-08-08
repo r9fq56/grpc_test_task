@@ -12,7 +12,7 @@ import (
 )
 
 var (
-	grpcServerEndpoint = ":50051"
+	grpcServerEndpoint = "make-interface-dump:50051"
 )
 
 func main() {

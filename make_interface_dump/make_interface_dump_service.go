@@ -34,7 +34,36 @@ func (s *server) MakeInterfaceDump(ctx context.Context, in *pb.MakeInterfaceDump
 }
 
 func WriteToDb(id, name, mac, ip, dns, gateway string) {
-	db, err := sqlx.Connect("postgres", "host=localhost port=5432 user=testuser password='1212' dbname=dump")
+
+	// var schema = `
+	// CREATE TABLE intdumps (
+	// 	id char(36) NOT NULL PRIMARY KEY,
+	// 	create_date timestamp
+	// );
+
+	// CREATE TABLE dumpdata (
+	// 	id_dump char(36),
+	// 	mac char(17),
+	// 	name char(50),
+	// 	ip char(15),
+	// 	dns char(15),
+	// 	gateway char(30)
+	// )`
+
+	// db, err := sqlx.Connect("postgres", "host=db port=5432 user=testuser password='1212' dbname=dump sslmode=disable")
+	// if err != nil {
+	// 	log.Fatalln(err)
+	// }
+
+	// // exec the schema or fail; multi-statement Exec behavior varies between
+	// // database drivers;  pq will exec them all, sqlite3 won't, ymmv
+	// db.MustExec(schema)
+
+	// tx := db.MustBegin()
+	// tx.MustExec("INSERT INTO intdumps (id, create_date) VALUES ($1, $2)", "test_id", "2021-08-05 21:00:00")
+	// tx.Commit()
+
+	db, err := sqlx.Connect("postgres", "host=db port=5432 user=testuser password='1212' dbname=dump sslmode=disable")
 	if err != nil {
 		log.Fatalln(err)
 	}

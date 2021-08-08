@@ -26,13 +26,13 @@ func (s *server) GetInterfaceDumps(ctx context.Context, in *pb.GetInterfaceDumps
 		Gateway string
 	}
 
-	db, err := sqlx.Connect("postgres", "host=localhost port=5432 user=testuser password='1212' dbname=dump")
+	db, err := sqlx.Connect("postgres", "host=db port=5432 user=testuser password='1212' dbname=dump sslmode=disable")
 	if err != nil {
 		log.Fatalln(err)
 	}
 	limit := fmt.Sprintf("%v", in.LastCount)
 	log.Println(limit)
-	request_text := "select intdumps.id, dumpdata.name, dumpdata.ip, dumpdata.mac, dumpdata.dns, dumpdata.gateway from intdumps left join dumpdata on intdumps.id=dumpdata.id_dump order by intdumps.create_date desc limit " + limit + ";"
+	request_text := "select intdumps.id, dumpdata.name, dumpdata.ip, dumpdata.mac, dumpdata.dns, dumpdata.gateway from intdumps inner join dumpdata on intdumps.id=dumpdata.id_dump order by intdumps.create_date desc limit " + limit + ";"
 	place := DumpData{}
 	rows, err := db.Queryx(request_text)
 	if err != nil {
